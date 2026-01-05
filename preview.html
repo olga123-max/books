@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Превью: Моя домашняя бизнес-библиотека</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables - КРАСНАЯ ЦВЕТОВАЯ СХЕМА */
+        :root {
+            --primary-color: #dc2626;
+            --primary-dark: #991b1b;
+            --primary-light: #fca5a5;
+            --secondary-color: #64748b;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border-color: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - Красный градиент */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Controls */
+        .controls {
+            background: var(--surface);
+            padding: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .search-bar {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .filters {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-group select {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .view-btn {
+            padding: 0.5rem 0.8rem;
+            border: 2px solid var(--border-color);
+            background: var(--surface);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .view-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Books Grid */
+        .books-section {
+            padding: 2rem 0 4rem;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .book-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            color: white;
+            font-size: 3rem;
+        }
+
+        .book-info {
+            padding: 1.5rem;
+        }
+
+        .book-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-author {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .book-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-secondary);
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .book-genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .genre-tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .book-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1.2rem;
+            border: none;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .preview-note {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.5rem;
+            margin: 2rem 0;
+            border-radius: var(--radius);
+        }
+
+        .preview-note h3 {
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-note p {
+            color: #78350f;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header с красным градиентом -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1><i class="fas fa-book-open"></i> Моя домашняя бизнес-библиотека</h1>
+                <div class="stats">
+                    <span class="stat-item">
+                        <i class="fas fa-books"></i>
+                        <strong>3</strong> книги
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="preview-note">
+            <h3><i class="fas fa-info-circle"></i> Превью красной цветовой схемы</h3>
+            <p>Это демонстрационная версия с красным дизайном. Обратите внимание на красный заголовок, красные акценты на кнопках и тегах жанров!</p>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <section class="controls">
+        <div class="container">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input 
+                    type="text" 
+                    placeholder="Поиск по названию, автору, описанию..."
+                    value="Попробуйте кликнуть - видите красную обводку?"
+                >
+            </div>
+
+            <div class="filters">
+                <div class="filter-group">
+                    <label>
+                        <i class="fas fa-tag"></i> Жанр:
+                    </label>
+                    <select>
+                        <option value="all">Все жанры</option>
+                        <option value="business">Бизнес</option>
+                        <option value="psychology">Психология</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>
+                        <i class="fas fa-sort"></i> Сортировка:
+                    </label>
+                    <select>
+                        <option value="title-asc">Название (А-Я)</option>
+                        <option value="year-desc">Год (новые)</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>
+                        <i class="fas fa-eye"></i> Вид:
+                    </label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="view-btn active">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Grid -->
+    <section class="books-section">
+        <div class="container">
+            <div class="books-grid">
+                <!-- Книга 1 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">Главный учебник HR в мире</h2>
+                        <p class="book-author">Майкл Армстронг</p>
+                        
+                        <div class="book-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>2020 г.</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-building"></i>
+                                <span>Бомбора</span>
+                            </div>
+                        </div>
+                        
+                        <div class="book-genres">
+                            <span class="genre-tag">Бизнес</span>
+                            <span class="genre-tag">HR</span>
+                            <span class="genre-tag">Управление</span>
+                        </div>
+                        
+                        <p class="book-description">Фундаментальное руководство по управлению человеческими ресурсами, признанное во всем мире.</p>
+                        
+                        <button class="btn btn-primary">
+                            <i class="fas fa-info-circle"></i>
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Книга 2 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">Безграничный разум</h2>
+                        <p class="book-author">Джо Боулер</p>
+                        
+                        <div class="book-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>2020 г.</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-building"></i>
+                                <span>МИФ</span>
+                            </div>
+                        </div>
+                        
+                        <div class="book-genres">
+                            <span class="genre-tag">Психология</span>
+                            <span class="genre-tag">Саморазвитие</span>
+                        </div>
+                        
+                        <p class="book-description">Книга о том, как развить потенциал своего разума и преодолеть ограничивающие убеждения.</p>
+                        
+                        <button class="btn btn-primary">
+                            <i class="fas fa-info-circle"></i>
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Книга 3 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">Работа, которая заряжает</h2>
+                        <p class="book-author">Елена Резанова</p>
+                        
+                        <div class="book-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>2022 г.</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-building"></i>
+                                <span>МИФ</span>
+                            </div>
+                        </div>
+                        
+                        <div class="book-genres">
+                            <span class="genre-tag">Психология</span>
+                            <span class="genre-tag">Карьера</span>
+                        </div>
+                        
+                        <p class="book-description">Практическое руководство по профилактике профессионального выгорания.</p>
+                        
+                        <button class="btn btn-primary">
+                            <i class="fas fa-info-circle"></i>
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

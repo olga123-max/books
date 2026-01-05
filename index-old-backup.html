@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя домашняя бизнес-библиотека</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1><i class="fas fa-book-open"></i> Моя домашняя бизнес-библиотека</h1>
+                <div class="stats">
+                    <span class="stat-item">
+                        <i class="fas fa-book"></i>
+                        <strong id="totalBooks">70</strong> книг
+                    </span>
+                    <span class="stat-item">
+                        <i class="fas fa-heart" style="color: #dc2626;"></i>
+                        <strong id="likesCount">0</strong> избранных
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Controls -->
+    <section class="controls">
+        <div class="container">
+            <!-- Filters -->
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="favoriteFilter">
+                        <i class="fas fa-heart"></i> Показать:
+                    </label>
+                    <select id="favoriteFilter">
+                        <option value="all">Все книги</option>
+                        <option value="liked">Только избранные</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="genreFilter">
+                        <i class="fas fa-tag"></i> Жанр:
+                    </label>
+                    <select id="genreFilter">
+                        <option value="all">Все жанры</option>
+                        <option value="business">Бизнес</option>
+                        <option value="psychology">Психология</option>
+                        <option value="career">Карьера</option>
+                        <option value="education">Образование</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="sortBy">
+                        <i class="fas fa-sort"></i> Сортировка:
+                    </label>
+                    <select id="sortBy">
+                        <option value="title-asc">Название (А-Я)</option>
+                        <option value="title-desc">Название (Я-А)</option>
+                        <option value="author-asc">Автор (А-Я)</option>
+                        <option value="author-desc">Автор (Я-А)</option>
+                        <option value="year-desc">Год (новые)</option>
+                        <option value="year-asc">Год (старые)</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>
+                        <i class="fas fa-eye"></i> Вид:
+                    </label>
+                    <div class="view-toggle">
+                        <button id="gridView" class="view-btn active" title="Сетка">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button id="listView" class="view-btn" title="Список">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Grid -->
+    <section class="books-section">
+        <div class="container">
+            <div id="booksGrid" class="books-grid"></div>
+            <div id="noResults" class="no-results" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>Ничего не найдено</h3>
+                <p>Попробуйте изменить критерии поиска или фильтры</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Book Details -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="./js/data.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+</html>
